@@ -68,25 +68,7 @@ module Actions
 
       def find_proxy(template_invocation, host)
         provider = template_invocation.template.provider_type.to_s
-        all_host_proxies(host).each do |proxies|
-          if proxy = proxies.joins(:features).where("features.name = ?", provider).first
-            return proxy
-          end
-        end
-        raise _("Could not use any proxy: assign a proxy with provider '%{provider}' to the host or set '%{global_proxy_setting}' in settings") %\
-            { :provider => provider, :global_proxy_setting => 'remote_execution_global_proxy' }
-      end
-
-      def all_host_proxies(host)
-        Enumerator.new do |e|
-          host.interfaces.each do |interface|
-            if interface.subnet
-              e << ::SmartProxy.where(:id => interface.subnet.proxies.map(&:id))
-            end
-          end
-          e << host.smart_proxies
-          e << ::SmartProxy.authorized if Setting[:remote_execution_global_proxy]
-        end
+        host.remote_execution_proxy(provider)
       end
     end
   end

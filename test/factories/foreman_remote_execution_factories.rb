@@ -46,3 +46,11 @@ FactoryGirl.define do
     f.sequence(:value) { |n| "Input Value #{n}" }
   end
 end
+
+FactoryGirl.modify do
+  factory :feature do
+    trait :ssh do
+      name 'Ssh'
+    end
+  end
+end
