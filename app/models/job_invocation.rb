@@ -24,6 +24,8 @@ class JobInvocation < ActiveRecord::Base
 
   scoped_search :on => [:job_name], :complete_value => true
 
+  default_scope -> { order('job_invocations.id DESC') }
+
   attr_accessor :start_before
   attr_writer :start_at
 

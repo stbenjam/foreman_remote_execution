@@ -37,6 +37,8 @@ Rails.application.routes.draw do
         collection do
           get 'revision'
         end
+
+        resources :template_inputs, :only => [:index, :show, :create, :new]
       end
     end
   end

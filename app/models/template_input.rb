@@ -11,7 +11,7 @@ class TemplateInput < ActiveRecord::Base
                   :puppet_class_name, :puppet_parameter_name, :description, :job_template_id,
                   :options
 
-  belongs_to :template
+  belongs_to :job_template, :foreign_key => 'template_id'
   has_many :template_invocation_input_values, :dependent => :destroy
 
   validates :name, :presence => true, :uniqueness => { :scope => 'template_id' }

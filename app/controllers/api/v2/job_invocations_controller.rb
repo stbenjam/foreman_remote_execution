@@ -34,7 +34,7 @@ module Api
         end
       end
 
-      api :POST, "/job_invocations/", N_("Create a job template")
+      api :POST, "/job_invocations/", N_("Create a job invocation")
       param_group :job_invocation, :as => :create
       def create
         composer = JobInvocationApiComposer.new(JobInvocation.new, User.current, params[:job_invocation])
